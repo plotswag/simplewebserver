@@ -21,31 +21,38 @@ Serving the HTML pages.
 Testing the webserver.
 
 ## PROGRAM:
-```html
+```
+from http.server import HTTPServer, BaseHTTPRequestHandler
+content = """
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Top 5 Software Companies</title>
+<title>Top 5 Revenue Company</title>
 </head>
 <body>
-    <h1>Top 5 Software Companies by Revenue</h1>
-    <ol>
-        <li>Microsoft</li>
-        <li>Apple</li>
-        <li>Amazon</li>
-        <li>Alphabet (Google)</li>
-        <li>Facebook</li>
-    </ol>
+<h1><u>Top 5 Revenue Company</u><h1>
+<ul>
+<li>Apple</li>
+<li>Microsoft</li>
+<li>Mi</li>
+<li>BlueBerry</li>
+<li>Google</li>
 </body>
 </html>
+"""
+class myhandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("request received")
+        self.send_response(200)
+        self.send_header('content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(content.encode())
+server_address = ('',8000)
+httpd = HTTPServer(server_address,myhandler)
+print("my webserver is running...")
+httpd.serve_forever()
 ```
-
-
 ## OUTPUT:
-![image](https://github.com/plotswag/simplewebserver/assets/145822344/c883dd60-ea01-4beb-9c6f-5b50c15890fe)
-
-
-
+![Simple HTML Web Page Output](https://github.com/plotswag/simplewebserver/assets/145822344/42c75e98-1eeb-4a19-9c5d-25745d39eb18)
 ## RESULT:
 The program for implementing simple webserver is executed successfully.
